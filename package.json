@@ -1,0 +1,55 @@
+{
+  "name": "screwdriver-request",
+  "version": "0.0.1",
+  "description": "Wrapper around got pkg to define a simple interface for http requests",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "eslint .",
+    "test": "nyc --report-dir ./artifacts/coverage --reporter=lcov mocha --reporter mocha-multi-reporters --reporter-options configFile=./mocha.config.json --recursive --timeout 4000 --retries 1 --exit --allow-uncaught true --color true",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:screwdriver-cd/request.git"
+  },
+  "homepage": "https://github.com/screwdriver-cd/request",
+  "bugs": "https://github.com/screwdriver-cd/screwdriver/issues",
+  "keywords": [
+    "screwdriver",
+    "yahoo"
+  ],
+  "license": "BSD-3-Clause",
+  "author": "Tiffany Kyi <tiffanykyi@gmail.com>",
+  "contributors": [
+    "Alan Dong <alandong2016@gmail.com>",
+    "Dao Lam <daolam112@gmail.com>",
+    "Dekus Lam <dekusdenial@hotmail.com>",
+    "Jithin Emmanuel <jithin1987@gmail.com>",
+    "Kevin Lu <klu13960@gmail.com>",
+    "Lakshminarasimhan Parthasarathy <laky@ymail.com>",
+    "Pritam Paul <pritam.paul09@hotmail.com>",
+    "Tiffany Kyi <tiffanykyi@gmail.com>"
+  ],
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "eslint": "^7.5.0",
+    "eslint-config-screwdriver": "^5.0.1",
+    "mocha": "^8.4.0",
+    "mocha-multi-reporters": "^1.5.1",
+    "mocha-sonarqube-reporter": "^1.0.2",
+    "mockery": "^2.1.0",
+    "nock": "^13.1.1",
+    "nyc": "^15.0.0",
+    "sinon": "^11.1.1"
+  },
+  "dependencies": {
+    "@hapi/hoek": "^9.2.0",
+    "got": "^11.8.2"
+  },
+  "release": {
+    "debug": false,
+    "verifyConditions": {
+      "path": "./node_modules/semantic-release/src/lib/plugin-noop.js"
+    }
+  }
+}
