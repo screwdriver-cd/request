@@ -32,7 +32,7 @@ const got = Got.extend({
                 throwError({ errorCode, errorReason, caller });
             }
 
-            // Set auth token
+            // Default to seting bearer token
             if (token && !options.headers.authorization) {
                 options.headers.authorization = `Bearer ${token}`;
             }
@@ -55,7 +55,7 @@ const got = Got.extend({
 
                     if (response) {
                         errorCode = Hoek.reach(response, 'statusCode', {
-                            default: 'SCM service unavailable.'
+                            default: 'Service unavailable.'
                         });
                         errorReason = Hoek.reach(response, 'body.message', {
                             default: JSON.stringify(response.body)

@@ -9,6 +9,41 @@
 npm install screwdriver-request
 ```
 
+Example:
+```javascript
+const Hoek = require('@hapi/hoek');
+const logger = require('logger');
+const request = require('screwdriver-request');
+
+async _addPrComment({ comment, prNum, scmUri }) {
+    try {
+        const pullRequestComment = await request({
+            method: 'POST',
+            url: `https://gitlab.com/v4/projects/${repoId}/merge_requests/${prNum}/notes`,
+            json: {
+                body: 'This is a comment'
+            },
+            context: {
+                token: this.config.commentUserToken,
+                caller: 'createPullRequestComment'
+            },
+            timeout: 15000
+        });
+        
+        return {
+            commentId: Hoek.reach(pullRequestComment, 'body.id'),
+            createTime: Hoek.reach(pullRequestComment, 'body.created_at'),
+            username: Hoek.reach(pullRequestComment, 'body.author.username')
+        };
+    } catch (err) {
+            logger.error('Failed to addPRComment: ', err);
+
+            return null;
+        }
+    }
+}
+
+```
 ## Testing
 
 ```bash
@@ -25,5 +60,5 @@ Code licensed under the BSD 3-Clause license. See LICENSE file for terms.
 [license-image]: https://img.shields.io/npm/l/screwdriver-request.svg
 [issues-image]: https://img.shields.io/github/issues/screwdriver-cd/request.svg
 [issues-url]: https://github.com/screwdriver-cd/request/issues
-[status-image]: https://cd.screwdriver.cd/pipelines/pipelineid/badge
-[status-url]: https://cd.screwdriver.cd/pipelines/pipelineid
+[status-image]: https://cd.screwdriver.cd/pipelines/7717/badge
+[status-url]: https://cd.screwdriver.cd/pipelines/7717
