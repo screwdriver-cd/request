@@ -1,6 +1,6 @@
 {
   "name": "screwdriver-request",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Wrapper around got pkg to define a simple interface for http requests",
   "main": "index.js",
   "scripts": {
