@@ -24,15 +24,7 @@ const got = Got.extend({
         (options, next) => {
             const { token, caller } = options.context;
 
-            // Check auth token
-            if (!token && !options.headers.authorization) {
-                const errorCode = 403;
-                const errorReason = 'Missing token for authentication';
-
-                throwError({ errorCode, errorReason, caller });
-            }
-
-            // Default to seting bearer token
+            // Default to setting bearer token
             if (token && !options.headers.authorization) {
                 options.headers.authorization = `Bearer ${token}`;
             }

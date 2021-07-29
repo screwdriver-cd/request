@@ -48,24 +48,6 @@ describe('index', function() {
             nock.cleanAll();
         });
 
-        it('throws when missing token', () => {
-            return got({
-                method: 'GET',
-                url: `${prefixUrl}/${route}`,
-                context: {
-                    caller: '_getProject'
-                }
-            })
-                .then(() => {
-                    assert.fail('should not get here');
-                })
-                .catch(error => {
-                    assert.instanceOf(error, Error);
-                    assert.match(error.message, '403 Reason "Missing token for authentication" Caller "_getProject"');
-                    assert.match(error.status, 403);
-                });
-        });
-
         it('sets token successfully', () => {
             nock(prefixUrl, {
                 reqheaders: {
