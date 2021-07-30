@@ -13,7 +13,7 @@ const Hoek = require('@hapi/hoek');
 function throwError({ errorCode, errorReason, caller }) {
     const err = new Error(`${errorCode} Reason "${errorReason}" Caller "${caller}"`);
 
-    err.status = errorCode;
+    err.statusCode = errorCode;
     throw err;
 }
 

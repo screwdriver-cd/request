@@ -97,7 +97,7 @@ describe('index', function() {
                 .catch(error => {
                     assert.instanceOf(error, Error);
                     assert.match(error.message, '500 Reason "Internal Server Error" Caller "_getProject"');
-                    assert.match(error.status, 500);
+                    assert.match(error.statusCode, 500);
                 });
         });
     });
