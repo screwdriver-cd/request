@@ -10,8 +10,8 @@ const Hoek = require('@hapi/hoek');
  * @param  {String} caller      Name of method or call that caused the error
  * @return {Error}              Throws prettified error
  */
-function throwError({ errorCode, errorReason, caller }) {
-    const err = new Error(`${errorCode} Reason "${errorReason}" Caller "${caller}"`);
+function throwError({ errorCode, errorReason }) {
+    const err = new Error(`${errorCode} Reason "${errorReason}"`);
 
     err.statusCode = errorCode;
     throw err;
@@ -19,10 +19,9 @@ function throwError({ errorCode, errorReason, caller }) {
 
 const got = Got.extend({
     responseType: 'json',
-    allowGetBody: true, // Allow us to pass prefixUrl, token, etc
     handlers: [
         (options, next) => {
-            const { token, caller } = options.context;
+            const { token } = options.context;
 
             // Default to setting bearer token
             if (token && !options.headers.authorization) {
@@ -47,14 +46,14 @@ const got = Got.extend({
 
                     if (response) {
                         errorCode = Hoek.reach(response, 'statusCode', {
-                            default: 'Service unavailable.'
+                            default: errorCode
                         });
                         errorReason = Hoek.reach(response, 'body.message', {
                             default: JSON.stringify(response.body)
                         });
                     }
 
-                    return throwError({ errorCode, errorReason, caller });
+                    return throwError({ errorCode, errorReason });
                 }
             })();
         }
