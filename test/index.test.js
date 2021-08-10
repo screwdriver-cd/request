@@ -87,7 +87,6 @@ describe('index', function() {
                 method: 'GET',
                 url: `${prefixUrl}/${route}`,
                 context: {
-                    caller: '_getProject',
                     token
                 }
             })
@@ -96,7 +95,7 @@ describe('index', function() {
                 })
                 .catch(error => {
                     assert.instanceOf(error, Error);
-                    assert.match(error.message, '500 Reason "Internal Server Error" Caller "_getProject"');
+                    assert.match(error.message, '500 Reason "Internal Server Error"');
                     assert.match(error.statusCode, 500);
                 });
         });
