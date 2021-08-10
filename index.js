@@ -19,7 +19,6 @@ function throwError({ errorCode, errorReason, caller }) {
 
 const got = Got.extend({
     responseType: 'json',
-    allowGetBody: true, // Allow us to pass prefixUrl, token, etc
     handlers: [
         (options, next) => {
             const { token, caller } = options.context;
@@ -47,7 +46,7 @@ const got = Got.extend({
 
                     if (response) {
                         errorCode = Hoek.reach(response, 'statusCode', {
-                            default: 'Service unavailable.'
+                            default: errorCode
                         });
                         errorReason = Hoek.reach(response, 'body.message', {
                             default: JSON.stringify(response.body)
