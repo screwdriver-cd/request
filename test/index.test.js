@@ -71,7 +71,7 @@ describe('index', function() {
             });
         });
 
-        it('throws when get error code not in range', () => {
+        it('throws when get error statusCode not in range', () => {
             nock(prefixUrl, {
                 reqheaders: {
                     authorization: headerValue => headerValue.includes('Bearer ')
@@ -97,6 +97,35 @@ describe('index', function() {
                     assert.instanceOf(error, Error);
                     assert.match(error.message, '500 Reason "Internal Server Error"');
                     assert.match(error.statusCode, 500);
+                });
+        });
+
+        it('throws with right error code', () => {
+            nock(prefixUrl, {
+                reqheaders: {
+                    authorization: headerValue => headerValue.includes('Bearer ')
+                }
+            })
+                .get(`/${route}`)
+                .delayConnection(500)
+                .reply(200, result)
+                .persist();
+
+            return got({
+                method: 'GET',
+                url: `${prefixUrl}/${route}`,
+                context: {
+                    caller: '_getProject',
+                    token
+                },
+                timeout: 400
+            })
+                .then(() => {
+                    assert.fail('should not get here');
+                })
+                .catch(error => {
+                    assert.instanceOf(error, Error);
+                    assert.match(error.code, 'ETIMEDOUT');
                 });
         });
     });
