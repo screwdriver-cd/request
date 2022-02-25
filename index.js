@@ -10,10 +10,11 @@ const Hoek = require('@hapi/hoek');
  * @param  {String} caller      Name of method or call that caused the error
  * @return {Error}              Throws prettified error
  */
-function throwError({ errorCode, errorReason }) {
-    const err = new Error(`${errorCode} Reason "${errorReason}"`);
+function throwError({ errorCode, errorStatusCode, errorReason }) {
+    const err = new Error(`${errorStatusCode} Reason "${errorReason}"`);
 
-    err.statusCode = errorCode;
+    err.statusCode = errorStatusCode;
+    err.code = errorCode;
     throw err;
 }
 
@@ -41,19 +42,23 @@ const got = Got.extend({
                 } catch (error) {
                     // Handle errors
                     const { response } = error;
-                    let errorCode = 500;
+                    let errorCode = 'ERR_UNSUPPORTED_PROTOCOL';
+                    let errorStatusCode = 500;
                     let errorReason = 'Internal server error';
 
+                    errorCode = Hoek.reach(error, 'code', {
+                        default: errorCode
+                    });
                     if (response) {
-                        errorCode = Hoek.reach(response, 'statusCode', {
-                            default: errorCode
+                        errorStatusCode = Hoek.reach(response, 'statusCode', {
+                            default: errorStatusCode
                         });
                         errorReason = Hoek.reach(response, 'body.message', {
                             default: JSON.stringify(response.body)
                         });
                     }
 
-                    return throwError({ errorCode, errorReason });
+                    return throwError({ errorCode, errorStatusCode, errorReason });
                 }
             })();
         }
