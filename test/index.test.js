@@ -7,7 +7,7 @@ const sinon = require('sinon');
 
 sinon.assert.expose(assert, { prefix: '' });
 
-describe('index', function() {
+describe('index', function () {
     // Time not important. Only life important.
     this.timeout(5000);
 

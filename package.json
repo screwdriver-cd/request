@@ -1,6 +1,6 @@
 {
   "name": "screwdriver-request",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Wrapper around got pkg to define a simple interface for http requests",
   "main": "index.js",
   "scripts": {
@@ -30,19 +30,19 @@
     "Tiffany Kyi <tiffanykyi@gmail.com>"
   ],
   "devDependencies": {
-    "chai": "^4.3.4",
-    "eslint": "^7.5.0",
-    "eslint-config-screwdriver": "^5.0.1",
-    "mocha": "^8.4.0",
+    "chai": "^4.3.7",
+    "eslint": "^8.28.0",
+    "eslint-config-screwdriver": "^7.0.0",
+    "mocha": "^10.1.0",
     "mocha-multi-reporters": "^1.5.1",
     "mocha-sonarqube-reporter": "^1.0.2",
     "mockery": "^2.1.0",
-    "nock": "^13.1.1",
-    "nyc": "^15.0.0",
-    "sinon": "^11.1.1"
+    "nock": "^13.2.9",
+    "nyc": "^15.1.0",
+    "sinon": "^15.0.0"
   },
   "dependencies": {
-    "@hapi/hoek": "^9.2.0",
+    "@hapi/hoek": "^10.0.1",
     "got": "^11.8.2"
   },
   "release": {
