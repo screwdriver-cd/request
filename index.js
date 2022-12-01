@@ -15,7 +15,7 @@ function throwError({ errorCode, errorStatusCode, errorReason }) {
 
     err.statusCode = errorStatusCode;
     err.code = errorCode;
- 
+
     throw err;
 }
 
